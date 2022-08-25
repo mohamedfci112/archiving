@@ -1,0 +1,273 @@
+<div class="container">
+  <div class="navigation">
+    <ul>
+      <li>
+        <a href="#">
+          <img class="logo" src="https://unico-egypt.com/assets/img/logo3.png" alt="">
+        </a>
+      </li>
+      <li>
+        <a routerLink="/">
+          <span class="icon"><i class="fas fa-home"></i></span>
+          <span class="title">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void();" (click)="open(content)">
+          <span class="icon"><i class="fas fa-folder-plus"></i></span>
+          <span class="title">Add File</span>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void();" (click)="openCategory(content2)">
+          <span class="icon"><i class="fas fa-cube"></i></span>
+          <span class="title">Add Category</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/viewfiles">
+          <span class="icon"><i class="fas fa-folder-open"></i></span>
+          <span class="title">View Files</span>
+        </a>
+      </li>
+      <li *ngIf="admin">
+        <a href="javascript:void();" (click)="openuser(content1)">
+          <span class="icon"><i class="fas fa-user-plus"></i></span>
+          <span class="title">Add Users</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/automates">
+          <span class="icon"><i class="fas fa-robot"></i></span>
+          <span class="title">Automates</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/assignFiles">
+          <span class="icon"><i class="fas fa-file-import"></i></span>
+          <span class="title">Assign Files</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/trash">
+          <span class="icon"><i class="fas fa-trash-restore"></i></span>
+          <span class="title">Trash</span>
+        </a>
+      </li>
+      <li *ngIf="admin">
+        <a routerLink="/history">
+          <span class="icon"><i class="fas fa-history"></i></span>
+          <span class="title">History</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/sitting">
+          <span class="icon"><i class="fas fa-user-cog"></i></span>
+          <span class="title">Sitting</span>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void();" (click)="logout()">
+          <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+          <span class="title">Log Out</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!--main-->
+  <div class="main">
+    <div class="topbar">
+      <div class="toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <!--search-->
+      <div class="search">
+        <label>
+          <input (keyup.enter)="search(searchfor, content3)" [(ngModel)]="searchfor" type="text" placeholder="Search inside any file...">
+          <i class="fas fa-search"></i>
+        </label>
+      </div>
+      <!--userimage-->
+      <div class="user">
+        <span>{{ username }}</span>
+      </div>
+      <!--
+      <div class="user">
+        <img src="https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=30" alt="">
+      </div>
+      -->
+    </div>
+    <div class="pages">
+      <router-outlet></router-outlet>
+    </div>
+    <notifier-container></notifier-container>
+  </div>
+</div>
+<!--modal add file-->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Upload new file</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="angFormFile" (ngSubmit)="addFile(angFormFile)" autocomplete="off">
+      <div class="form-group custom-file">
+        <input (change)="fileEvent($event)" [(ngModel)]="file1" name="file" formControlName="file" type="file" class="form-control-file" id="customFile">
+        <label class="custom-file-label" for="customFile">Choose file</label>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputName">Name</label>
+          <input [(ngModel)]="name1" type="text" name="name" formControlName="name" class="form-control" id="inputName" placeholder="File Name">
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="inputCategory">Category</label>
+          <select [(ngModel)]="category1" name="category" formControlName="category" *ngIf="category.length > 0" class="form-control" id="inputCategory">
+            <option></option>
+            <option *ngFor="let cat of category" [value]="cat.name">{{ cat.name }}</option>
+          </select>
+          <select *ngIf="category.length == 0" class="form-control" id="inputCategory" disabled>
+            <option>No Category</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group col-md-6">
+          <label for="inputType">Document Type</label>
+          <select [(ngModel)]="dtype1" name="dtype" formControlName="dtype" class="form-control" id="inputType">
+            <option value="Invoice">Invoice</option>
+            <option value="Contract">Contract</option>
+            <option value="Reqular Paper">Regular Paper</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="inputTages">Tages</label>
+          <input [(ngModel)]="tages1" name="tages" formControlName="tages" type="text" class="form-control" id="inputTages" placeholder="1234 Main St">
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label for="inputDescription">Description</label>
+        <input [(ngModel)]="dec1" name="dec" formControlName="dec" type="text" class="form-control" id="inputDescription" placeholder="Apartment, studio, or floor">
+      </div>
+
+      <button type="submit" class="btn btn-primary save" [disabled]="!file1 || !name1 || !category1 || !dtype1 || !tages1 || !dec1">Upload File</button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Cancel</button>
+  </div>
+</ng-template>
+
+<!--modal add user-->
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New Profile</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="angForm" (ngSubmit)="postdata(angForm)" autocomplete="off">
+      <div class="form-group">
+        <label for="exampleInputName">Name</label>
+        <input [(ngModel)]="name1" type="text" name="name" formControlName="name" autocomplete="off" class="form-control" id="exampleInputName" placeholder="Enter name" required >
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail">Email</label>
+        <input [(ngModel)]="email1" type="email" name="email" formControlName="email" autocomplete="off" class="form-control" id="exampleInputEmail" placeholder="Enter unico email" required >
+        <small class="form-text text-muted">Ensert only Unico email</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword">Password</label>
+        <input [(ngModel)]="password1" type="password" name="Password" formControlName="password" autocomplete="off" class="form-control" id="exampleInputPassword" placeholder="Password"required >
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">User Department</label>
+        <select [(ngModel)]="depart1" name="depart" formControlName="depart" autocomplete="off" class="form-control" id="exampleFormControlSelect1" required>
+          <option value="Environmental">Environmental</option>
+          <option value="Lifting">Lifting</option>
+          <option value="Drilling">Drilling</option>
+          <option value="Finance">Finance</option>
+          <option value="NORM">NORM</option>
+          <option value="QHSE">QHSE</option>
+          <option value="Production">Production</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect">User Type</label>
+        <select [(ngModel)]="type1" name="type" formControlName="type" autocomplete="off" class="form-control" id="exampleFormControlSelect" required>
+          <option value="1">User</option>
+          <option value="0">Admin</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary save" [disabled]="!name1 || !email1 || !password1 || !type1 || !depart1">Submit</button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Cancel</button>
+  </div>
+</ng-template>
+
+
+<!--modal add category-->
+<ng-template #content2 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New Category</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="angFormcategory" (ngSubmit)="addCategiry(angFormcategory)" autocomplete="off">
+      <div class="form-group">
+        <label for="exampleInputName">Category Name</label>
+        <input [(ngModel)]="cname1" type="text" name="cname" formControlName="cname" autocomplete="off" class="form-control" id="exampleInputName" placeholder="Enter category name" required >
+      </div>
+      <button type="submit" class="btn btn-primary save" [disabled]="!cname1">Submit</button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Cancel</button>
+  </div>
+</ng-template>
+
+
+<!--modal search results-->
+<ng-template #content3 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Search Results</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table class="table table-striped">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">#</th>
+          <th scope="col">File</th>
+          <th scope="col">Download</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let raf of searchresults;let i=index" class="text-center">
+          <th scope="row">{{i+1}}</th>
+          <td>{{raf}}</td>
+          <td><a href="http://localhost:8080/archiving_php/uploads/{{departUser}}/{{raf}}" target="_blank" download><i class="fas fa-download"></i></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Cancel</button>
+  </div>
+</ng-template>

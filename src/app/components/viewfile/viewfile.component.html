@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="tobnav">
+    <a routerLink="/">Dashboard </a><span>/ View Files</span>
+  </div>
+
+  <!--Cards-->
+  <div class="cardBox">
+    <div class="card" *ngFor="let folder of category">
+      <a [routerLink]="['/page', folder.category]" style="text-decoration: none;">
+        <div class="iconBox"><i class="fas fa-folder"></i></div>
+        <div>
+          <div class="cardName">{{ folder.category }}</div>
+          <div class="numbers">{{ folder.num }}</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+

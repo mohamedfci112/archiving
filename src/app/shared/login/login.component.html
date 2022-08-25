@@ -1,0 +1,35 @@
+  <div class="container">
+    <div class="container__forms">
+      <div class="form">
+        <form [formGroup]="angForm" (ngSubmit)="postdata(angForm)">
+          <h2 class="form__title">Sign In</h2>
+          <div class="form__input-field form-group">
+            <i class="fas fa-user"></i>
+            <input type="email" name="email" formControlName="email" autocomplete="off" class="form-control" placeholder="Email" />
+          </div>
+          <div class="form__input-field form-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" name="Password" formControlName="password" autocomplete="off" class="form-control" placeholder="Password" />
+          </div>
+          <input class="form__submit" type="submit" value="Login" />
+          <br>
+        </form>
+
+      </div>
+    </div>
+    <div class="container__panels">
+      <div class="panel panel__left">
+        <div class="panel__content">
+          <img class="panel__logo" src="https://unico-egypt.com/assets/img/logo3.png" alt="">
+          <h3 class="panel__title">Unico Archiving System</h3>
+          <p class="panel__paragraph">
+            Are you want your unico dashboard?
+          </p>
+          <a href="https://www.unico-egypt.com/dashboardhome" target="_blank" class="btn btn-transparent" id="sign-up-btn">
+            Unico Dashboard
+          </a>
+        </div>
+        <img class="panel__image" src="https://raw.githubusercontent.com/ismailvtl/ismailvtl.github.io/master/images/cloud-storage.png" alt="" />
+      </div>
+    </div>
+  </div>

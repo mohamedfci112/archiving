@@ -1,0 +1,138 @@
+<div class="container">
+  <div class="tobnav">
+    <a routerLink="/">Dashboard </a><span>/ Automates</span>
+  </div>
+  <div class="searchBox">
+    <div class="form">
+      <form [formGroup]="angForm" (ngSubmit)="searchdata(angForm)" autocomplete="off">
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="inputName">Name</label>
+            <input type="text" name="name" formControlName="name" class="form-control" id="inputName" placeholder="Insert Name">
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="filename">File Name</label>
+            <input type="text" name="filename" formControlName="filename" class="form-control" id="filename" placeholder="Insert File Name">
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="category">Category</label>
+            <select name="category" formControlName="category" *ngIf="category.length > 0" class="form-control" id="inputCategory">
+              <option></option>
+              <option *ngFor="let cat of category" [value]="cat.name">{{ cat.name }}</option>
+            </select>
+            <select *ngIf="category.length == 0" class="form-control" id="inputCategory" disabled>
+              <option>No Category</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="doctype">Document Type</label>
+            <select name="doctype" formControlName="doctype" class="form-control" id="doctype">
+              <option value=""></option>
+              <option value="Invoice">Invoice</option>
+              <option value="Contract">Contract</option>
+              <option value="Reqular Paper">Regular Paper</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="tags">Tags</label>
+            <input type="text" name="tags" formControlName="tags" class="form-control" id="tags" placeholder="Insert Tags">
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="desc">Description</label>
+            <input type="text" name="desc" formControlName="desc" class="form-control" id="desc" placeholder="Insert Description">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group hidden">
+            <div class="input-group">
+              <input name="datepicker"
+                     class="form-control"
+                     ngbDatepicker
+                     #datepicker="ngbDatepicker"
+                     [autoClose]="'outside'"
+                     (dateSelect)="onDateSelection($event)"
+                     [displayMonths]="2"
+                     [dayTemplate]="t"
+                     outsideDays="hidden"
+                     [startDate]="fromDate!"
+                     tabindex="-1" type="hidden">
+              <ng-template #t let-date let-focused="focused">
+                <span class="custom-day"
+                      [class.focused]="focused"
+                      [class.range]="isRange(date)"
+                      [class.faded]="isHovered(date) || isInside(date)"
+                      (mouseenter)="hoveredDate = date"
+                      (mouseleave)="hoveredDate = null">
+                  {{ date.day }}
+                </span>
+              </ng-template>
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="fromdate">From Date</label>
+            <div class="input-group">
+              <input #dpFromDate
+                     class="form-control" placeholder="yyyy-mm-dd"
+                     id="fromdate"
+                     name="dpFromDate"
+                     [value]="formatter.format(fromDate)"
+                     (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"><i class="far fa-calendar-alt"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="todate">To Date</label>
+            <div class="input-group">
+              <input #dpToDate
+                     class="form-control" placeholder="yyyy-mm-dd"
+                     id="todate"
+                     name="dpToDate"
+                     [value]="formatter.format(toDate)"
+                     (input)="toDate = validateInput(toDate, dpToDate.value)">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"><i class="far fa-calendar-alt"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex;align-items: center;justify-content: center;">
+          <button type="submit" class="btn btn-primary save col-md-4">Search</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <div class="result">
+    <div class="table" *ngIf="resultfiles.length > 0;">
+      <table class="table table-striped">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">#</th>
+            <th scope="col">File</th>
+            <th scope="col">Category</th>
+            <th scope="col">Download</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center" *ngFor="let rf of resultfiles;let i=index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{rf.name}}</td>
+            <td>{{rf.category}}</td>
+            <td><a href="http://localhost:8080/archiving_php/uploads/{{departUser}}/{{rf.filename}}" target="_blank" download><i class="fas fa-download"></i></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

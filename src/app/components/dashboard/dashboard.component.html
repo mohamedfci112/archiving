@@ -1,0 +1,135 @@
+<!--Cards-->
+<div class="cardBox">
+  <div class="card">
+    <div>
+      <div class="numbers">{{dayfiles[0].day}}</div>
+      <div class="cardName">Daily Uploads</div>
+    </div>
+    <div class="iconBox"><i class="fas fa-eye"></i></div>
+  </div>
+  <div class="card">
+    <div>
+      <div class="numbers">{{monthfiles[0].day}}</div>
+      <div class="cardName">Monthly Uploads</div>
+    </div>
+    <div class="iconBox"><i class="fas fa-eye"></i></div>
+  </div>
+  <div class="card">
+    <div>
+      <div class="numbers">{{yearfiles[0].day}}</div>
+      <div class="cardName">Annual Uploads</div>
+    </div>
+    <div class="iconBox"><i class="fas fa-eye"></i></div>
+  </div>
+  <div class="card">
+    <div>
+      <div class="numbers">{{allfiles[0].day}}</div>
+      <div class="cardName">Total Uploads</div>
+    </div>
+    <div class="iconBox"><i class="fas fa-eye"></i></div>
+  </div>
+</div>
+<!--Charts-->
+<div class="container">
+  <div class="row">
+    <div class="col-md-7">
+      <div class="bar">
+        <div>
+          <div style="display: block">
+            <canvas baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="pich">
+        <div>
+          <span><i class="fas fa-users"></i> Users Count Per Department</span>
+          <div class="chart">
+            <canvas baseChart
+              [data]="pieChartData"
+              [labels]="pieChartLabels"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [colors]="pieChartColors"
+              [legend]="pieChartLegend">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Recent Table-->
+<div class="container recent">
+  <div class="row">
+    <div class="col-md-7 col-sm-12">
+      <div class="recent-left">
+        <div class="row text-center">
+          <div class="col-md-6">
+            <span><i class="fas fa-cloud-upload-alt"></i> Recent Uploads</span>
+          </div>
+          <div class="col-md-6">
+            <span><a routerLink="/viewfiles"><i class="fas fa-eye"></i> View All</a></span>
+          </div>
+        </div>
+        <div class="tbl">
+          <table class="table table-striped">
+            <thead>
+              <tr class="text-center">
+                <th scope="col">#</th>
+                <th scope="col">File</th>
+                <th scope="col">User</th>
+                <th scope="col">Download</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center" *ngFor="let rf of recentfiles;let i=index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{rf.name}}</td>
+                <td>{{rf.email}}</td>
+                <td><a href="http://localhost:8080/archiving_php/uploads/{{departUser}}/{{rf.filename}}" target="_blank" download><i class="fas fa-download"></i></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 col-sm-12">
+      <div class="recent-left">
+        <div class="row text-center">
+          <div class="col-md-6">
+            <span><i class="fas fa-file-import"></i> Assigned Files</span>
+          </div>
+          <div class="col-md-6">
+            <span><a routerLink="/assignFiles"><i class="fas fa-eye"></i> View All</a></span>
+          </div>
+        </div>
+        <div class="tbl">
+          <table class="table table-striped">
+            <thead>
+              <tr class="text-center">
+                <th scope="col">#</th>
+                <th scope="col">File</th>
+                <th scope="col">Assigned From</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let raf of recentassignfiles;let i=index" class="text-center">
+                <th scope="row">{{i+1}}</th>
+                <td>{{raf.filename}}</td>
+                <td>{{raf.department}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

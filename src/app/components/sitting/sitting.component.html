@@ -1,0 +1,49 @@
+<div class="settings-page">
+  <div class="settings-container">
+    <h1 class="page-title">Account</h1>
+    <div class="settings-section">
+      <h2 class="settings-title">General Information</h2>
+        <div class="non-active-form">
+          <b>Name </b><p>{{ username }}</p>
+        </div>
+   <div>
+     <div class="non-active-form">
+       <b>Email </b><p class="capitalize">{{ useremail }}</p>
+     </div>
+    </div>
+    <div>
+      <div class="non-active-form">
+        <b>Department </b><p class="capitalize">{{ userdepart }}</p>
+      </div>
+    </div>
+
+  </div>
+
+<div class="settings-section">
+  <h2 class="settings-title">Password</h2>
+  <form class="form my-form" [formGroup]="angForm" (ngSubmit)="postdata(angForm)">
+    <div class="form-group">
+      <div class="input-group">
+        <input name="userid" type="hidden" autocomplete="off" class="form-control" value="{{userid}}">
+        <span class="focus-input"></span>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group">
+        <input name="currentPassword" placeholder="Current Password" type="password" formControlName="currentPassword" autocomplete="off" class="form-control">
+        <span class="focus-input"></span>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group">
+        <input name="newPassword" placeholder="New Password" type="password" formControlName="newPassword" autocomplete="off" class="form-control">
+        <span class="focus-input"></span>
+      </div>
+    </div>
+   <div class="form-submit right">
+     <button class="btn button full" type="submit">Change Password</button>
+    </div>
+  </form>
+</div>
+</div>
+</div>

@@ -1,0 +1,63 @@
+.tobnav{
+    position: relative;
+    margin-top: 2%;
+    padding: 5px 30px;
+    background-color: whitesmoke;
+    font-size: 1.3em;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  td, th {
+    font-size: 17px;
+  }
+  .actions{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: inherit;
+  }
+  .form-group.hidden {
+    width: 0;
+    margin: 0;
+    border: none;
+    padding: 0;
+  }
+  .custom-day {
+    text-align: center;
+    padding: 0.185rem 0.25rem;
+    display: inline-block;
+    height: 2rem;
+    width: 2rem;
+  }
+  .custom-day.focused {
+    background-color: #e6e6e6;
+  }
+  .custom-day.range, .custom-day:hover {
+    background-color: rgb(2, 117, 216);
+    color: white;
+  }
+  .custom-day.faded {
+    background-color: rgba(2, 117, 216, 0.5);
+  }
+.searchBox{
+  width: 100%;
+  padding: 20px;
+}
+.searchBox .form{
+  position: relative;
+  background: white;
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  align-items: center;
+  justify-content: space-between;
+  transition: 0.5s;
+}
