@@ -1,7 +1,35 @@
 <div class="container">
   <div class="tobnav">
-    <a routerLink="/">Dashboard </a><span>/ </span><a routerLink="/viewfiles">View Files </a><span>/ {{id}} Files</span>
+    <div>
+      <a routerLink="/">Dashboard </a><span>/ </span><a routerLink="/viewfiles">View Files </a><span>/ {{id}} Files</span>
+    </div>
+    <div>
+      <a href="javascript:void();" (click)="open1(content1)" class="btn btn-warning">
+        <span class="icon"><i class="fas fa-folder-plus"></i></span>
+        <span class="title"> Add File</span>
+      </a>
+    </div>
+    <div>
+      <a href="javascript:void();" (click)="openCategory(content2)" class="btn btn-primary">
+        <span class="icon"><i class="fas fa-plus"></i></span>
+        <span class="title"> Add Folder</span>
+      </a>
+    </div>
   </div>
+
+  
+<!--Cards-->
+<div class="cardBox">
+  <div class="card" *ngFor="let folder of category">
+    <a [routerLink]="['/sub1', folder.category]" style="text-decoration: none;">
+      <div class="iconBox"><i class="fas fa-folder"></i></div>
+      <div>
+        <div class="cardName">{{ folder.category }}</div>
+        <div class="numbers">{{ folder.num }}</div>
+      </div>
+    </a>
+  </div>
+</div>
 
   <div class="tabl">
     <mat-form-field>
@@ -64,6 +92,96 @@
   </div>
   <div class="modal-body">
     <button *ngFor="let d of departs" type="button" class="btn btn-outline-info btn-sm" (click)="assign(d.name)">{{d.name}}</button>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Cancel</button>
+  </div>
+</ng-template>
+
+
+<!--modal add file-->
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Upload new file</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="angFormFile" (ngSubmit)="addFile(angFormFile)" autocomplete="off">
+      <div class="form-group custom-file">
+        <input (change)="fileEvent($event)" [(ngModel)]="file1" name="file" formControlName="file" type="file" class="form-control-file" id="customFile">
+        <label class="custom-file-label" for="customFile">Choose file</label>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputName">Name</label>
+          <input [(ngModel)]="name1" type="text" name="name" formControlName="name" class="form-control" id="inputName" placeholder="File Name">
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="inputCategory">Category</label>
+          <select [(ngModel)]="category1" name="category" formControlName="category1" *ngIf="category1.length > 0" class="form-control" id="inputCategory">
+            <option></option>
+            <option *ngFor="let cat of category1" [value]="cat.name">{{ cat.name }}</option>
+          </select>
+          <select *ngIf="category1.length == 0" class="form-control" id="inputCategory" disabled>
+            <option>No Category</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group col-md-6">
+          <label for="inputType">Document Type</label>
+          <select [(ngModel)]="dtype1" name="dtype" formControlName="dtype" class="form-control" id="inputType">
+            <option value="Invoice">Invoice</option>
+            <option value="Contract">Contract</option>
+            <option value="Checks">Checks</option>
+            <option value="Transfers">Transfers</option>
+            <option value="Adjustments">Adjustments</option>
+            <option value="Reqular Paper">Regular Paper</option>
+          </select>
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="inputTages">Tages</label>
+          <input [(ngModel)]="tages1" name="tages" formControlName="tages" type="text" class="form-control" id="inputTages" placeholder="1234 Main St">
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label for="inputDescription">Description</label>
+        <input [(ngModel)]="dec1" name="dec" formControlName="dec" type="text" class="form-control" id="inputDescription" placeholder="Apartment, studio, or floor">
+      </div>
+
+      <button type="submit" class="btn btn-primary save" [disabled]="!file1 || !name1 || !category1 || !dtype1 || !tages1 || !dec1">Upload File</button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Cancel</button>
+  </div>
+</ng-template>
+
+<!--modal add category-->
+<ng-template #content2 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New Category</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="angFormcategory" (ngSubmit)="addCategiry(angFormcategory)" autocomplete="off">
+      <div class="form-group">
+        <label for="exampleInputName">Category Name</label>
+        <input [(ngModel)]="cname" type="text" name="cname" formControlName="cname" autocomplete="off" class="form-control" id="exampleInputName" placeholder="Enter category name" required >
+      </div>
+      <button type="submit" class="btn btn-primary save" [disabled]="!cname">Submit</button>
+    </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Cancel</button>

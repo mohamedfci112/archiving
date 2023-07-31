@@ -21,7 +21,7 @@
       <li>
         <a href="javascript:void();" (click)="openCategory(content2)">
           <span class="icon"><i class="fas fa-cube"></i></span>
-          <span class="title">Add Category</span>
+          <span class="title">Add Folder</span>
         </a>
       </li>
       <li>
@@ -143,6 +143,9 @@
           <select [(ngModel)]="dtype1" name="dtype" formControlName="dtype" class="form-control" id="inputType">
             <option value="Invoice">Invoice</option>
             <option value="Contract">Contract</option>
+            <option value="Checks">Checks</option>
+            <option value="Transfers">Transfers</option>
+            <option value="Adjustments">Adjustments</option>
             <option value="Reqular Paper">Regular Paper</option>
           </select>
         </div>

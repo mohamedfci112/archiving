@@ -30,6 +30,10 @@ import { AutomatesComponent } from './components/automates/automates.component';
 import { HistoryComponent } from './components/history/history.component';
 import { SittingComponent } from './components/sitting/sitting.component';
 import { BackupComponent } from './components/backup/backup.component';
+import { Sub1Component } from './components/sub1/sub1.component';
+import { Sub2Component } from './components/sub2/sub2.component';
+import { Sub3Component } from './components/sub3/sub3.component';
+import { Sub4Component } from './components/sub4/sub4.component';
 
 const notifierDefaultOptions: NotifierOptions = {
   position: {
@@ -76,13 +80,17 @@ const routes: Routes = [
   {path: '', component: DashboardComponent, canActivate: [AuthguardGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'viewfiles', component: ViewfileComponent, canActivate: [AuthguardGuard]},
-  { path: 'page/:id', component: PageComponent, canActivate: [AuthguardGuard]},
   { path: 'trash', component: TrashComponent, canActivate: [AuthguardGuard]},
   { path: 'assignFiles', component: AssignfilesComponent, canActivate: [AuthguardGuard]},
   { path: 'automates', component: AutomatesComponent, canActivate: [AuthguardGuard]},
   { path: 'history', component: HistoryComponent, canActivate: [AuthguardGuard]},
   { path: 'backup', component: BackupComponent, canActivate: [AuthguardGuard]},
   { path: 'sitting', component: SittingComponent, canActivate: [AuthguardGuard]},
+  { path: 'page/:id', component: PageComponent, canActivate: [AuthguardGuard]},
+  { path: 'sub1/:id', component: Sub1Component, canActivate: [AuthguardGuard]},
+  { path: 'sub2/:id', component: Sub2Component, canActivate: [AuthguardGuard]},
+  { path: 'sub3/:id', component: Sub3Component, canActivate: [AuthguardGuard]},
+  { path: 'sub4/:id', component: Sub4Component, canActivate: [AuthguardGuard]},
 ];
 @NgModule({
   declarations: [
@@ -99,6 +107,10 @@ const routes: Routes = [
     HistoryComponent,
     SittingComponent,
     BackupComponent,
+    Sub1Component,
+    Sub2Component,
+    Sub3Component,
+    Sub4Component,
   ],
   imports: [
     BrowserModule,

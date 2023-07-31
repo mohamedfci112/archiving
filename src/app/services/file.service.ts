@@ -27,6 +27,59 @@ export class FileService {
     return Users;
     }));
   }
+
+  // tslint:disable-next-line:typedef
+  addFileSub1(myFormData) {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+      // tslint:disable-next-line:max-line-length
+    return this.httpClient.post<any>(this.baseUrl + 'uploadfilesub1.php', myFormData, {
+      // tslint:disable-next-line:object-literal-shorthand
+      headers: headers}).pipe(map(Users => {
+    return Users;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  addFileSub2(myFormData) {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+      // tslint:disable-next-line:max-line-length
+    return this.httpClient.post<any>(this.baseUrl + 'uploadfilesub2.php', myFormData, {
+      // tslint:disable-next-line:object-literal-shorthand
+      headers: headers}).pipe(map(Users => {
+    return Users;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  addFileSub3(myFormData) {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+      // tslint:disable-next-line:max-line-length
+    return this.httpClient.post<any>(this.baseUrl + 'uploadfilesub3.php', myFormData, {
+      // tslint:disable-next-line:object-literal-shorthand
+      headers: headers}).pipe(map(Users => {
+    return Users;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  addFileSub4(myFormData) {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+      // tslint:disable-next-line:max-line-length
+    return this.httpClient.post<any>(this.baseUrl + 'uploadfilesub4.php', myFormData, {
+      // tslint:disable-next-line:object-literal-shorthand
+      headers: headers}).pipe(map(Users => {
+    return Users;
+    }));
+  }
+
   // tslint:disable-next-line:typedef
   addCategory(name, department) {
     const user = localStorage.getItem('archiving_email');
@@ -35,6 +88,43 @@ export class FileService {
     return Users;
     }));
   }
+
+  //add sub1 folders
+  addCategorySub1(name, parent, department) {
+    const user = localStorage.getItem('archiving_email');
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'addcategorysub1.php', { name, parent, department, user }).pipe(map(Users => {
+    return Users;
+    }));
+  }
+
+  //add sub2 folders
+  addCategorySub2(name, parent, department) {
+    const user = localStorage.getItem('archiving_email');
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'addcategorysub2.php', { name, parent, department, user }).pipe(map(Users => {
+    return Users;
+    }));
+  }
+
+  //add sub3 folders
+  addCategorySub3(name, parent, department) {
+    const user = localStorage.getItem('archiving_email');
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'addcategorysub3.php', { name, parent, department, user }).pipe(map(Users => {
+    return Users;
+    }));
+  }
+
+  //add sub4 folders
+  addCategorySub4(name, parent, department) {
+    const user = localStorage.getItem('archiving_email');
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'addcategorysub4.php', { name, parent, department, user }).pipe(map(Users => {
+    return Users;
+    }));
+  }
+
   // tslint:disable-next-line:typedef
   getCategory(department) {
     // tslint:disable-next-line:no-shadowed-variable
@@ -42,6 +132,39 @@ export class FileService {
     return Data;
     }));
   }
+
+  // tslint:disable-next-line:typedef
+  getCategorySub1(department) {
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'getcategorysub1.php', { department }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  getCategorySub2(department) {
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'getcategorysub2.php', { department }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  getCategorySub3(department) {
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'getcategorysub3.php', { department }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  getCategorySub4(department) {
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'getcategorysub4.php', { department }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
   // tslint:disable-next-line:typedef
   getCategoryGroup(department) {
     // tslint:disable-next-line:no-shadowed-variable
@@ -49,6 +172,39 @@ export class FileService {
     return Data;
     }));
   }
+
+  // tslint:disable-next-line:typedef
+  getCategoryGroupSub1(parent, department) {
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'getcategorygroupsub1.php', { parent, department }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  getCategoryGroupSub2(parent, department) {
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'getcategorygroupsub2.php', { parent, department }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  getCategoryGroupSub3(parent, department) {
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'getcategorygroupsub3.php', { parent, department }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  getCategoryGroupSub4(parent, department) {
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'getcategorygroupsub4.php', { parent, department }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
   // tslint:disable-next-line:typedef
   getCategoryFile(id, department) {
     // tslint:disable-next-line:no-shadowed-variable
@@ -56,6 +212,39 @@ export class FileService {
     return Data;
     }));
   }
+
+  // tslint:disable-next-line:typedef
+  getCategoryFileSub1(id, department) {
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'getcategoryfilesub1.php', { id, department }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  getCategoryFileSub2(id, department) {
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'getcategoryfilesub2.php', { id, department }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  getCategoryFileSub3(id, department) {
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'getcategoryfilesub3.php', { id, department }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  getCategoryFileSub4(id, department) {
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'getcategoryfilesub4.php', { id, department }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
   // tslint:disable-next-line:typedef
   deleteFile(id, filename, department, user) {
     // tslint:disable-next-line:no-shadowed-variable
@@ -63,6 +252,39 @@ export class FileService {
     return Data;
     }));
   }
+
+  // tslint:disable-next-line:typedef
+  deleteFileSub1(id, filename, department, user) {
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'deleteFileSub1.php', { id, filename, department, user }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  deleteFileSub2(id, filename, department, user) {
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'deleteFileSub2.php', { id, filename, department, user }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  deleteFileSub3(id, filename, department, user) {
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'deleteFileSub3.php', { id, filename, department, user }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  deleteFileSub4(id, filename, department, user) {
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'deleteFileSub4.php', { id, filename, department, user }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
   // tslint:disable-next-line:typedef
   getTrash(department) {
     // tslint:disable-next-line:no-shadowed-variable
@@ -93,6 +315,7 @@ export class FileService {
     return Data;
     }));
   }
+
   // tslint:disable-next-line:typedef
   assignFile(id, filename, department, depart) {
     const user = localStorage.getItem('archiving_email');
@@ -101,6 +324,43 @@ export class FileService {
     return Data;
     }));
   }
+
+  // tslint:disable-next-line:typedef
+  assignFileSub1(id, filename, department, depart) {
+    const user = localStorage.getItem('archiving_email');
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'assignFileSub1.php', { id, filename, department, depart, user }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  assignFileSub2(id, filename, department, depart) {
+    const user = localStorage.getItem('archiving_email');
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'assignFileSub2.php', { id, filename, department, depart, user }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  assignFileSub3(id, filename, department, depart) {
+    const user = localStorage.getItem('archiving_email');
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'assignFileSub3.php', { id, filename, department, depart, user }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  assignFileSub4(id, filename, department, depart) {
+    const user = localStorage.getItem('archiving_email');
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'assignFileSub4.php', { id, filename, department, depart, user }).pipe(map(Data => {
+    return Data;
+    }));
+  }
+
   // tslint:disable-next-line:typedef
   getAssignedFile(department): Observable<any> {
     // tslint:disable-next-line:no-shadowed-variable

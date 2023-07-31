@@ -1,0 +1,189 @@
+<div class="container">
+    <div class="tobnav">
+      <div>
+        <a routerLink="/">Dashboard </a><span>/ </span><a routerLink="/viewfiles">View Files </a><span>/ {{id}} Files</span>
+      </div>
+      <div>
+        <a href="javascript:void();" (click)="open1(content1)" class="btn btn-warning">
+          <span class="icon"><i class="fas fa-folder-plus"></i></span>
+          <span class="title"> Add File</span>
+        </a>
+      </div>
+      <div>
+        <a href="javascript:void();" (click)="openCategory(content2)" class="btn btn-primary">
+          <span class="icon"><i class="fas fa-plus"></i></span>
+          <span class="title"> Add Folder</span>
+        </a>
+      </div>
+    </div>
+  
+    
+  <!--Cards-->
+  <div class="cardBox">
+    <div class="card" *ngFor="let folder of category">
+      <a [routerLink]="['/sub2', folder.category]" style="text-decoration: none;">
+        <div class="iconBox"><i class="fas fa-folder"></i></div>
+        <div>
+          <div class="cardName">{{ folder.category }}</div>
+          <div class="numbers">{{ folder.num }}</div>
+        </div>
+      </a>
+    </div>
+  </div>
+  
+    <div class="tabl">
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+      </mat-form-field>
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+  
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+  
+          <!-- Weight Column -->
+          <ng-container matColumnDef="filename">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> File Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.filename}} </td>
+          </ng-container>
+  
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Added Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+          </ng-container>
+  
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="department">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+            <td class="actions" mat-cell *matCellDef="let element">
+              <a href="http://localhost:8080/archiving_php/uploads/{{departUser}}/{{element.filename}}" target="_blank" download><i class="fas fa-download"></i></a>
+              <a href="javascript:void(0);" (click)="deleteFile(element.id, element.filename)" style="color: red;"><i class="fas fa-trash-alt"></i></a>
+              <!-- Example split danger button -->
+              <button type="button" class="btn btn-outline-danger btn-sm" (click)="open(content, element.id, element.filename)">Assign To</button>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+  
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+  
+    </div>
+  </div>
+  <!--modal add file-->
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Assign <span style="color: red;">{{assignedfile}}</span> to</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <button *ngFor="let d of departs" type="button" class="btn btn-outline-info btn-sm" (click)="assign(d.name)">{{d.name}}</button>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Cancel</button>
+    </div>
+  </ng-template>
+  
+  
+  <!--modal add file-->
+  <ng-template #content1 let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Upload new file</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="angFormFile" (ngSubmit)="addFile(angFormFile)" autocomplete="off">
+        <div class="form-group custom-file">
+          <input (change)="fileEvent($event)" [(ngModel)]="file1" name="file" formControlName="file" type="file" class="form-control-file" id="customFile">
+          <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+  
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputName">Name</label>
+            <input [(ngModel)]="name1" type="text" name="name" formControlName="name" class="form-control" id="inputName" placeholder="File Name">
+          </div>
+  
+          <div class="form-group col-md-6">
+            <label for="inputCategory">Category</label>
+            <select [(ngModel)]="category1" name="category" formControlName="category1" *ngIf="category1.length > 0" class="form-control" id="inputCategory">
+              <option></option>
+              <option *ngFor="let cat of category1" [value]="cat.name">{{ cat.name }}</option>
+            </select>
+            <select *ngIf="category1.length == 0" class="form-control" id="inputCategory" disabled>
+              <option>No Category</option>
+            </select>
+          </div>
+        </div>
+  
+        <div class="form-row">
+  
+          <div class="form-group col-md-6">
+            <label for="inputType">Document Type</label>
+            <select [(ngModel)]="dtype1" name="dtype" formControlName="dtype" class="form-control" id="inputType">
+              <option value="Invoice">Invoice</option>
+              <option value="Contract">Contract</option>
+              <option value="Checks">Checks</option>
+              <option value="Transfers">Transfers</option>
+              <option value="Adjustments">Adjustments</option>
+              <option value="Reqular Paper">Regular Paper</option>
+            </select>
+          </div>
+  
+          <div class="form-group col-md-6">
+            <label for="inputTages">Tages</label>
+            <input [(ngModel)]="tages1" name="tages" formControlName="tages" type="text" class="form-control" id="inputTages" placeholder="1234 Main St">
+          </div>
+  
+        </div>
+  
+        <div class="form-group">
+          <label for="inputDescription">Description</label>
+          <input [(ngModel)]="dec1" name="dec" formControlName="dec" type="text" class="form-control" id="inputDescription" placeholder="Apartment, studio, or floor">
+        </div>
+  
+        <button type="submit" class="btn btn-primary save" [disabled]="!file1 || !name1 || !category1 || !dtype1 || !tages1 || !dec1">Upload File</button>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Cancel</button>
+    </div>
+  </ng-template>
+  
+  <!--modal add category-->
+  <ng-template #content2 let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">New Category</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="angFormcategory" (ngSubmit)="addCategiry(angFormcategory)" autocomplete="off">
+        <div class="form-group">
+          <label for="exampleInputName">Category Name</label>
+          <input [(ngModel)]="cname" type="text" name="cname" formControlName="cname" autocomplete="off" class="form-control" id="exampleInputName" placeholder="Enter category name" required >
+        </div>
+        <button type="submit" class="btn btn-primary save" [disabled]="!cname">Submit</button>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Cancel</button>
+    </div>
+  </ng-template>
