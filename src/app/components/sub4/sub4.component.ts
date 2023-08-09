@@ -41,6 +41,12 @@ export class Sub4Component implements OnInit, AfterViewInit {
   fdate: any;
   filedata: any;
 
+  username;
+  typeUser;
+  admin = false;
+  supervisor = false;
+  viewer = false;
+
   // tslint:disable-next-line:max-line-length
   constructor(notifierService: NotifierService, private fb: FormBuilder, private modalService: NgbModal, private route: ActivatedRoute, private fileService: FileService, private router: Router) {
     this.angFormcategory = this.fb.group({
@@ -106,6 +112,28 @@ export class Sub4Component implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.username = localStorage.getItem('archiving_name');
+    this.departUser = localStorage.getItem('archiving_depart');
+    this.typeUser = localStorage.getItem('archiving_user');
+    if (this.typeUser == '1'){
+      this.admin = true;
+    }
+    else{
+      this.admin = false;
+    }
+    if (this.typeUser == '0'){
+      this.supervisor = true;
+    }
+    else{
+      this.supervisor = false;
+    }
+    if (this.typeUser == '2'){
+      this.viewer = true;
+    }
+    else{
+      this.viewer = false;
+    }
+    
     this.route.params.subscribe(params => {
       this.id = params.id;
     });

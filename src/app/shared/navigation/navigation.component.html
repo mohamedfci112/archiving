@@ -12,13 +12,13 @@
           <span class="title">Dashboard</span>
         </a>
       </li>
-      <li>
+      <li *ngIf="admin || supervisor">
         <a href="javascript:void();" (click)="open(content)">
           <span class="icon"><i class="fas fa-folder-plus"></i></span>
           <span class="title">Add File</span>
         </a>
       </li>
-      <li>
+      <li *ngIf="admin || supervisor">
         <a href="javascript:void();" (click)="openCategory(content2)">
           <span class="icon"><i class="fas fa-cube"></i></span>
           <span class="title">Add Folder</span>
@@ -42,13 +42,13 @@
           <span class="title">Automates</span>
         </a>
       </li>
-      <li>
+      <li *ngIf="admin || supervisor">
         <a routerLink="/assignFiles">
           <span class="icon"><i class="fas fa-file-import"></i></span>
           <span class="title">Assign Files</span>
         </a>
       </li>
-      <li>
+      <li *ngIf="admin">
         <a routerLink="/trash">
           <span class="icon"><i class="fas fa-trash-restore"></i></span>
           <span class="title">Trash</span>
@@ -63,7 +63,7 @@
       <li>
         <a routerLink="/sitting">
           <span class="icon"><i class="fas fa-user-cog"></i></span>
-          <span class="title">Sitting</span>
+          <span class="title">Settings</span>
         </a>
       </li>
       <li>
@@ -187,7 +187,7 @@
       <div class="form-group">
         <label for="exampleInputEmail">Email</label>
         <input [(ngModel)]="email1" type="email" name="email" formControlName="email" autocomplete="off" class="form-control" id="exampleInputEmail" placeholder="Enter unico email" required >
-        <small class="form-text text-muted">Ensert only Unico email</small>
+        <small class="form-text text-muted">Insert only Unico email</small>
       </div>
       <div class="form-group">
         <label for="exampleInputPassword">Password</label>
@@ -208,8 +208,9 @@
       <div class="form-group">
         <label for="exampleFormControlSelect">User Type</label>
         <select [(ngModel)]="type1" name="type" formControlName="type" autocomplete="off" class="form-control" id="exampleFormControlSelect" required>
-          <option value="1">User</option>
-          <option value="0">Admin</option>
+          <option value="2">Viewer</option>          
+          <option value="0">Supervisor</option>
+          <option value="1">Admin</option>
         </select>
       </div>
       <button type="submit" class="btn btn-primary save" [disabled]="!name1 || !email1 || !password1 || !type1 || !depart1">Submit</button>

@@ -134,33 +134,33 @@ export class FileService {
   }
 
   // tslint:disable-next-line:typedef
-  getCategorySub1(department) {
+  getCategorySub1(department, p) {
     // tslint:disable-next-line:no-shadowed-variable
-    return this.httpClient.post<any>(this.baseUrl + 'getcategorysub1.php', { department }).pipe(map(Data => {
+    return this.httpClient.post<any>(this.baseUrl + 'getcategorysub1.php', { department, p }).pipe(map(Data => {
     return Data;
     }));
   }
 
   // tslint:disable-next-line:typedef
-  getCategorySub2(department) {
+  getCategorySub2(department, p) {
     // tslint:disable-next-line:no-shadowed-variable
-    return this.httpClient.post<any>(this.baseUrl + 'getcategorysub2.php', { department }).pipe(map(Data => {
+    return this.httpClient.post<any>(this.baseUrl + 'getcategorysub1.php', { department, p }).pipe(map(Data => {
     return Data;
     }));
   }
 
   // tslint:disable-next-line:typedef
-  getCategorySub3(department) {
+  getCategorySub3(department, p) {
     // tslint:disable-next-line:no-shadowed-variable
-    return this.httpClient.post<any>(this.baseUrl + 'getcategorysub3.php', { department }).pipe(map(Data => {
+    return this.httpClient.post<any>(this.baseUrl + 'getcategorysub1.php', { department, p }).pipe(map(Data => {
     return Data;
     }));
   }
 
   // tslint:disable-next-line:typedef
-  getCategorySub4(department) {
+  getCategorySub4(department, p) {
     // tslint:disable-next-line:no-shadowed-variable
-    return this.httpClient.post<any>(this.baseUrl + 'getcategorysub4.php', { department }).pipe(map(Data => {
+    return this.httpClient.post<any>(this.baseUrl + 'getcategorysub1.php', { department, p }).pipe(map(Data => {
     return Data;
     }));
   }
@@ -398,6 +398,14 @@ export class FileService {
     return Data;
     }));
   }
+
+  // tslint:disable-next-line:typedef
+  getCategoryAutomates(department) {
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'getcategoryautomates.php', { department }).pipe(map(Data => {
+    return Data;
+    }));
+  }
   // tslint:disable-next-line:typedef
   automates(name, filename, category, doctype, tags, desc, datefrom, dateto, department) {
     // tslint:disable-next-line:no-shadowed-variable
@@ -406,4 +414,50 @@ export class FileService {
     return Data;
     }));
   }
+
+  // tslint:disable-next-line:typedef
+  editCategory(oldC, newC, department) {
+    const user = localStorage.getItem('archiving_email');
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'editcategory.php', { oldC, newC, department, user }).pipe(map(Users => {
+    return Users;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  editCategorySub1(oldC, newC, department) {
+    const user = localStorage.getItem('archiving_email');
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'editcategorysub1.php', { oldC, newC, department, user }).pipe(map(Users => {
+    return Users;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  editCategorySub2(oldC, newC, department) {
+    const user = localStorage.getItem('archiving_email');
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'editcategorysub2.php', { oldC, newC, department, user }).pipe(map(Users => {
+    return Users;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  editCategorySub3(oldC, newC, department) {
+    const user = localStorage.getItem('archiving_email');
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'editcategorysub3.php', { oldC, newC, department, user }).pipe(map(Users => {
+    return Users;
+    }));
+  }
+
+  // tslint:disable-next-line:typedef
+  editCategorySub4(oldC, newC, department) {
+    const user = localStorage.getItem('archiving_email');
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<any>(this.baseUrl + 'editcategorysub4.php', { oldC, newC, department, user }).pipe(map(Users => {
+    return Users;
+    }));
+  }
+
 }

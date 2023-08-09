@@ -14,7 +14,10 @@ export class DashboardService {
 
   // tslint:disable-next-line:typedef
   getDayFiles(department) {
-    const day = new Date().toLocaleDateString();
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth() + 1;
+    const date = new Date().getDate();
+    const day = year + '/' + month + '/' + date;
     // tslint:disable-next-line:no-shadowed-variable
     return this.httpClient.post<any>(this.baseUrl + 'dashboardDay.php', { department, day }).pipe(map(Data => {
     return Data;
@@ -24,8 +27,8 @@ export class DashboardService {
   getMonthFiles(department) {
     const month = new Date().getMonth() + 1;
     const year = new Date().getFullYear();
-    const firstday = month + '/' + '1' + '/' + year;
-    const lastday = month + '/' + '31' + '/' + year;
+    const firstday = year + '/' + month + '/' + '1';
+    const lastday = year + '/' + month + '/' + '31';
     // tslint:disable-next-line:no-shadowed-variable
     return this.httpClient.post<any>(this.baseUrl + 'dashboardMonth.php', { department, firstday, lastday }).pipe(map(Data => {
     return Data;
@@ -34,12 +37,13 @@ export class DashboardService {
   // tslint:disable-next-line:typedef
   getYearFiles(department) {
     const year = new Date().getFullYear();
-    const firstdate = '1' + '/' + '1' + '/' + year;
-    const lastdate = '12' + '/' + '31' + '/' + year;
+    const firstdate = year + '/' + '1' + '/' + '1';
+    const lastdate = year + '/' + '12' + '/' + '31';
     // tslint:disable-next-line:no-shadowed-variable
     return this.httpClient.post<any>(this.baseUrl + 'dashboardYear.php', { department, firstdate, lastdate }).pipe(map(Data => {
     return Data;
     }));
+    console.log(firstdate);
   }
   // tslint:disable-next-line:typedef
   getAllFiles(department) {

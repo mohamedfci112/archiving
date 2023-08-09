@@ -21,6 +21,8 @@ export class NavigationComponent implements OnInit {
   departUser;
   typeUser;
   admin = false;
+  supervisor = false;
+  viewer = false;
   angForm: FormGroup;
   angFormcategory: FormGroup;
   angFormFile: FormGroup;
@@ -89,7 +91,11 @@ export class NavigationComponent implements OnInit {
 // tslint:disable-next-line:typedef
 addFile(angForm3)
 {
-  this.fdate = new Date().toLocaleDateString();
+  const year = new Date().getFullYear();
+  const month = new Date().getMonth()+1;
+  const day = new Date().getDate();
+  this.fdate = year + '/' + month + '/' + day;
+  //this.fdate = new Date().toLocaleDateString();
   const depart = localStorage.getItem('archiving_depart');
   const user = localStorage.getItem('archiving_email');
   const myFormData = new FormData();
@@ -202,11 +208,23 @@ addFile(angForm3)
     this.username = localStorage.getItem('archiving_name');
     this.departUser = localStorage.getItem('archiving_depart');
     this.typeUser = localStorage.getItem('archiving_user');
-    if (this.typeUser === '1'){
+    if (this.typeUser == '1'){
       this.admin = true;
     }
     else{
       this.admin = false;
+    }
+    if (this.typeUser == '0'){
+      this.supervisor = true;
+    }
+    else{
+      this.supervisor = false;
+    }
+    if (this.typeUser == '2'){
+      this.viewer = true;
+    }
+    else{
+      this.viewer = false;
     }
     this.fileService.getCategory(this.departUser).subscribe(
       data => {

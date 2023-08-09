@@ -9,6 +9,7 @@
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
     </mat-form-field>
     <div class="mat-elevation-z8">
+      <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
       <table mat-table [dataSource]="dataSource" matSort>
 
         <!-- Name Column -->
@@ -44,7 +45,7 @@
         </tr>
       </table>
 
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
     </div>
 
   </div>

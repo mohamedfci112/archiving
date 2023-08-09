@@ -14,6 +14,7 @@
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
       </mat-form-field>
       <div class="mat-elevation-z8">
+          <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
         <table mat-table [dataSource]="dataSource" matSort>
   
           <!-- Name Column -->
@@ -39,9 +40,9 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
             <td class="actions" mat-cell *matCellDef="let element">
               <a href="http://localhost:8080/archiving_php/uploads/{{departUser}}/{{element.filename}}" target="_blank" download><i class="fas fa-download"></i></a>
-              <a href="javascript:void(0);" (click)="deleteFile(element.id, element.filename)" style="color: red;"><i class="fas fa-trash-alt"></i></a>
+              <a *ngIf="admin" href="javascript:void(0);" (click)="deleteFile(element.id, element.filename)" style="color: red;"><i class="fas fa-trash-alt"></i></a>
               <!-- Example split danger button -->
-              <button type="button" class="btn btn-outline-danger btn-sm" (click)="open(content, element.id, element.filename)">Assign To</button>
+              <button *ngIf="admin || supervisor" type="button" class="btn btn-outline-danger btn-sm" (click)="open(content, element.id, element.filename)">Assign To</button>
             </td>
           </ng-container>
   
@@ -54,7 +55,7 @@
           </tr>
         </table>
   
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
       </div>
   
     </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-import { Label } from 'ng2-charts';
+import { Label, Color } from 'ng2-charts';
 import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
@@ -19,6 +19,10 @@ export class DashboardComponent implements OnInit {
   recentassignfiles;
 
   public barChartOptions: ChartOptions = {
+    title: {
+      text: 'Uploaded Files Per Department',
+      display: true
+    },
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
     scales: { xAxes: [{}], yAxes: [{}] },
@@ -29,12 +33,15 @@ export class DashboardComponent implements OnInit {
       }
     }
   };
-  public barChartLabels: Label[] = ['Drilling', 'Environmental', 'Finance', 'Lifting', 'NORM', 'QHSE'];
+  public barChartLabels: Label[] = ['Drilling', 'Environmental', 'Finance', 'Lifting', 'NORM', 'QHSE', 'Production'];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
+  public barChartColors: Color[] = [
+    { backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)', 'red', 'blue', 'yellow', 'green', 'gray'] }
+  ]
 
   public barChartData: ChartDataSets[] = [
-    { data: [0, 0, 0, 0, 0, 0], label: 'Uploaded Files Per Department' },
+    { data: [0,0,0,0,0,0,0], label: "Departments" }
   ];
 
    // Pie
@@ -52,13 +59,13 @@ export class DashboardComponent implements OnInit {
       },
     }
   };
-  public pieChartLabels: Label[] = ['Drilling', 'Environmental', 'Finance', 'Lifting', 'NORM', 'QHSE'];
+  public pieChartLabels: Label[] = ['Drilling', 'Environmental', 'Finance', 'Lifting', 'NORM', 'QHSE', 'Production'];
   public pieChartData: number[] = [];
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
   public pieChartColors = [
     {
-      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)', 'red', 'blue', 'yellow', 'green'],
+      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)', 'red', 'blue', 'yellow', 'green', 'gray'],
     },
   ];
   constructor(private ds: DashboardService) { }
@@ -124,24 +131,89 @@ export class DashboardComponent implements OnInit {
       data => {
         this.usercount = data;
         // tslint:disable-next-line:radix
-        const driling = parseInt(this.usercount[0].num);
-        // tslint:disable-next-line:radix
-        const environment = parseInt(this.usercount[1].num);
-        // tslint:disable-next-line:radix
-        const finance = parseInt(this.usercount[2].num);
-        // tslint:disable-next-line:radix
-        const lifting = parseInt(this.usercount[3].num);
-        // tslint:disable-next-line:radix
-        const norm = parseInt(this.usercount[4].num);
-        // tslint:disable-next-line:radix
-        const qhse = parseInt(this.usercount[5].num);
-        // this.pieChartData = [driling, environment, finance, lifting, norm, qhse];
+        if(parseInt(this.usercount[0].drilling) > 0)
+        {
+        const driling = parseInt(this.usercount[0].drilling);
         this.pieChartData.push(driling);
+        }
+        else
+        {
+        const driling = 0;
+        this.pieChartData.push(driling);
+        }
+        // tslint:disable-next-line:radix
+        
+        if(parseInt(this.usercount[0].environmental) > 0)
+        {
+          const environment = parseInt(this.usercount[0].environmental);
         this.pieChartData.push(environment);
+        }
+        else
+        {
+        const environment = 0;
+        this.pieChartData.push(environment);
+        }
+        // tslint:disable-next-line:radix
+        
+        if(parseInt(this.usercount[0].finance) > 0)
+        {
+          const finance = parseInt(this.usercount[0].finance);
+          this.pieChartData.push(finance);
+        }
+        else
+        {
+        const finance = 0;
         this.pieChartData.push(finance);
+        }
+        // tslint:disable-next-line:radix
+        
+        if(parseInt(this.usercount[0].lifting) > 0)
+        {
+          const lifting = parseInt(this.usercount[0].lifting);
+          this.pieChartData.push(lifting);
+        }
+        else
+        {
+        const lifting = 0;
         this.pieChartData.push(lifting);
+        }
+        // tslint:disable-next-line:radix
+        
+        if(parseInt(this.usercount[0].norm) > 0)
+        {
+          const norm = parseInt(this.usercount[0].norm);
+          this.pieChartData.push(norm);
+        }
+        else
+        {
+        const norm = 0;
         this.pieChartData.push(norm);
+        }
+        // tslint:disable-next-line:radix
+        
+        if(parseInt(this.usercount[0].qhse) > 0)
+        {
+          const qhse = parseInt(this.usercount[0].qhse);
+          this.pieChartData.push(qhse);
+        }
+        else
+        {
+        const qhse = 0;
         this.pieChartData.push(qhse);
+        }
+        // tslint:disable-next-line:radix
+        
+        if(parseInt(this.usercount[0].production) > 0)
+        {
+          const production = parseInt(this.usercount[0].production);
+          this.pieChartData.push(production);
+        }
+        else
+        {
+        const production = 0;
+        this.pieChartData.push(production);
+        }
+        // this.pieChartData = [driling, environment, finance, lifting, norm, qhse,production];
       },
       error => {
       }
@@ -151,18 +223,84 @@ export class DashboardComponent implements OnInit {
       data => {
         this.usercount = data;
         // tslint:disable-next-line:radix
-        const bardriling = parseInt(this.usercount[0].num);
+        var bardriling;
+        if(parseInt(this.usercount[0].drilling) > 0)
+        {
+          bardriling = parseInt(this.usercount[0].drilling);
+        }
+        else
+        {
+          bardriling = 0;
+        }
         // tslint:disable-next-line:radix
-        const barenvironment = parseInt(this.usercount[1].num);
+        
+        var barenvironment;
+        if(parseInt(this.usercount[0].environmental) > 0)
+        {
+          barenvironment = parseInt(this.usercount[0].environmental);
+        }
+        else
+        {
+          barenvironment = 0;
+        }
         // tslint:disable-next-line:radix
-        const barfinance = parseInt(this.usercount[2].num);
+        
+        var barfinance;
+        if(parseInt(this.usercount[0].finance) > 0)
+        {
+          barfinance = parseInt(this.usercount[0].finance);
+        }
+        else
+        {
+          barfinance = 0;
+        }
         // tslint:disable-next-line:radix
-        const barlifting = parseInt(this.usercount[3].num);
+        
+        var barlifting;
+        if(parseInt(this.usercount[0].lifting) > 0)
+        {
+          barlifting = parseInt(this.usercount[0].lifting);
+        }
+        else
+        {
+          barlifting = 0;
+        }
         // tslint:disable-next-line:radix
-        const barnorm = parseInt(this.usercount[4].num);
+        
+        var barnorm;
+        if(parseInt(this.usercount[0].norm) > 0)
+        {
+          barnorm = parseInt(this.usercount[0].norm);
+        }
+        else
+        {
+          barnorm = 0;
+        }
         // tslint:disable-next-line:radix
-        const barqhse = parseInt(this.usercount[5].num);
-        this.barChartData[0].data = [bardriling, barenvironment, barfinance, barlifting, barnorm, barqhse];
+        
+        var barqhse;
+        if(parseInt(this.usercount[0].qhse) > 0)
+        {
+          barqhse = parseInt(this.usercount[0].qhse);
+        }
+        else
+        {
+          barqhse = 0;
+        }
+
+        // tslint:disable-next-line:radix
+        
+        var barproduction;
+        if(parseInt(this.usercount[0].production) > 0)
+        {
+          barproduction = parseInt(this.usercount[0].production);
+        }
+        else
+        {
+          barproduction = 0;
+        }
+
+        this.barChartData[0].data = [bardriling, barenvironment, barfinance, barlifting, barnorm, barqhse, barproduction];
       },
       error => {
       }

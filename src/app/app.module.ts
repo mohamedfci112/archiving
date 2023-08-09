@@ -24,6 +24,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {  MatInputModule } from '@angular/material/input';
+import {MatMenuModule} from '@angular/material/menu';
 import { TrashComponent } from './components/trash/trash.component';
 import { AssignfilesComponent } from './components/assignfiles/assignfiles.component';
 import { AutomatesComponent } from './components/automates/automates.component';
@@ -126,6 +127,7 @@ const routes: Routes = [
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
+    MatMenuModule,
     NotifierModule.withConfig(notifierDefaultOptions),
   ],
   providers: [

@@ -3,13 +3,13 @@
     <div>
       <a routerLink="/">Dashboard </a><span>/ View Files</span>
     </div>
-    <div>
+    <div *ngIf="admin || supervisor">
       <a href="javascript:void();" (click)="open(content)" class="btn btn-warning">
         <span class="icon"><i class="fas fa-folder-plus"></i></span>
         <span class="title"> Add File</span>
       </a>
     </div>
-    <div>
+    <div *ngIf="admin || supervisor">
       <a href="javascript:void();" (click)="openCategory(content2)" class="btn btn-primary">
         <span class="icon"><i class="fas fa-plus"></i></span>
         <span class="title"> Add Folder</span>
@@ -20,7 +20,7 @@
 
   <!--Cards-->
   <div class="cardBox">
-    <div class="card" *ngFor="let folder of category">
+    <div class="card" *ngFor="let folder of category" (contextmenu)="onRightClick($event, {content: folder.category})">
       <a [routerLink]="['/page', folder.category]" style="text-decoration: none;">
         <div class="iconBox"><i class="fas fa-folder"></i></div>
         <div>
@@ -31,6 +31,8 @@
     </div>
   </div>
 </div>
+
+
 
 <!--modal add file-->
 <ng-template #content let-modal>
@@ -120,3 +122,45 @@
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Cancel</button>
   </div>
 </ng-template>
+
+
+<!--modal edit category-->
+<ng-template #content3 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit Category</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="angFormEditcategory" (ngSubmit)="editCategory(angFormEditcategory)" autocomplete="off">
+      <div class="form-group">
+        <label for="exampleInputName">Old Category Name</label>
+        <input [(ngModel)]="cname11" type="text" name="cname3" formControlName="cname3" class="form-control" placeholder="Enter category name" readonly >
+      </div>
+      <div class="form-group">
+        <label for="exampleInputName">New Category Name</label>
+        <input [(ngModel)]="cname2" type="text" name="cname2" formControlName="cname2" class="form-control" placeholder="Enter category name" required >
+      </div>
+      <button type="submit" class="btn btn-primary save" [disabled]="!cname2">Submit</button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Cancel</button>
+  </div>
+</ng-template>
+
+<!-- an hidden div is created to set the position of appearance of the menu-->
+<div style="visibility: hidden; position: fixed;"
+[style.left.px]="menuTopLeftPosition.x"
+[style.top.px]="menuTopLeftPosition.y"
+[matMenuTriggerFor]="rightMenu"></div>
+
+<!-- standar material menu -->
+<mat-menu #rightMenu="matMenu">
+  <ng-template matMenuContent let-item="item">
+    <button mat-menu-item (click)="openEditCategory(content3,item.content)">Edit {{item.content}}</button>
+    
+    <a mat-menu-item [routerLink]="['/page', item.content]" target="_blank" style="text-decoration: none;">Open on new tab</a>
+  </ng-template>
+</mat-menu>

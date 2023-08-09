@@ -20,7 +20,7 @@ export class AutomatesComponent implements OnInit {
   toDate: NgbDate | null;
   fulldateFrom = '';
   fulldateTo = '';
-  resultfiles: [] = [];
+  resultfiles: Array<any> = [];
   departUser;
   private readonly notifier: NotifierService;
   category: Categories[];
@@ -89,14 +89,14 @@ export class AutomatesComponent implements OnInit {
       },
 
       error => {
-      this.notifier.notify('error', 'Failed!');
+      this.notifier.notify('error', 'Failed! '+ error);
       }
     );
   }
 
   ngOnInit(): void {
     this.departUser = localStorage.getItem('archiving_depart');
-    this.fileService.getCategory(this.departUser).subscribe(
+    this.fileService.getCategoryAutomates(this.departUser).subscribe(
       data => {
         this.category = data;
       },
@@ -104,6 +104,9 @@ export class AutomatesComponent implements OnInit {
       error => {
       }
     );
+    //
+    //
+    //
   }
 
 }
