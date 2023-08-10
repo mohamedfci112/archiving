@@ -45,7 +45,7 @@
   <div class="modal-body">
     <form [formGroup]="angFormFile" (ngSubmit)="addFile(angFormFile)" autocomplete="off">
       <div class="form-group custom-file">
-        <input (change)="fileEvent($event)" [(ngModel)]="file1" name="file" formControlName="file" type="file" class="form-control-file" id="customFile">
+        <input (change)="fileEvent($event)" multiple [(ngModel)]="file1" name="file" formControlName="file" type="file" class="form-control-file" id="customFile">
         <label class="custom-file-label" for="customFile">Choose file</label>
       </div>
 

@@ -42,7 +42,7 @@ export class ViewfileComponent implements OnInit {
   angFormEditcategory: FormGroup;
   angFormFile: FormGroup;
   private readonly notifier: NotifierService;
-  filedata: any;
+  filedata:string  []  =  [];
   fdate: any;
   cname1:any="";
   cname11:any="";
@@ -205,7 +205,10 @@ export class ViewfileComponent implements OnInit {
 
 
   fileEvent(e){
-    this.filedata = e.target.files[0];
+    for (var i =  0; i <  e.target.files.length; i++)
+    {  
+      this.filedata.push(e.target.files[i]);
+    }
 }
   // tslint:disable-next-line:typedef
 addFile(angForm3)
@@ -218,7 +221,12 @@ addFile(angForm3)
   const depart = localStorage.getItem('archiving_depart');
   const user = localStorage.getItem('archiving_email');
   const myFormData = new FormData();
-  myFormData.append('file', this.filedata);
+
+  for  (var i =  0; i <  this.filedata.length; i++)
+  {  
+    myFormData.append("file[]",  this.filedata[i]);
+  }
+
   myFormData.append('name', angForm3.value.name);
   myFormData.append('category', angForm3.value.category1);
   myFormData.append('date', this.fdate);

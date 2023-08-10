@@ -55,7 +55,8 @@ export class NavigationComponent implements OnInit {
       });
   }
   /* Variabe to store file data */
-  filedata: any;
+  //filedata: any;
+  filedata:string  []  =  [];
   fdate: any;
   searchfor = '';
   // tslint:disable-next-line:typedef
@@ -85,7 +86,11 @@ export class NavigationComponent implements OnInit {
   /* File onchange event */
   // tslint:disable-next-line:typedef
   fileEvent(e){
-      this.filedata = e.target.files[0];
+    for (var i =  0; i <  e.target.files.length; i++)
+    {  
+      this.filedata.push(e.target.files[i]);
+    }
+      //this.filedata = e.target.files[0];
   }
   /* Upload button functioanlity */
 // tslint:disable-next-line:typedef
@@ -99,7 +104,13 @@ addFile(angForm3)
   const depart = localStorage.getItem('archiving_depart');
   const user = localStorage.getItem('archiving_email');
   const myFormData = new FormData();
-  myFormData.append('file', this.filedata);
+
+  //myFormData.append('file', this.filedata);
+
+  for  (var i =  0; i <  this.filedata.length; i++)
+  {  
+    myFormData.append("file[]",  this.filedata[i]);
+  }
   myFormData.append('name', angForm3.value.name);
   myFormData.append('category', angForm3.value.category);
   myFormData.append('date', this.fdate);
@@ -108,8 +119,7 @@ addFile(angForm3)
   myFormData.append('dec', angForm3.value.dec);
   myFormData.append('depart', depart);
   myFormData.append('user', user);
-  // tslint:disable-next-line:max-line-length
-  // console.log(angForm3.value.file, angForm3.value.name, angForm3.value.category, angForm3.value.date, angForm3.value.dtype, angForm3.value.tages, angForm3.value.dec, depart, user);
+
   // tslint:disable-next-line:max-line-length
   this.fileService.addFile(myFormData)
   .pipe(first()).subscribe(

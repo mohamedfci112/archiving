@@ -53,7 +53,7 @@ export class Sub3Component implements OnInit, AfterViewInit {
   private readonly notifier: NotifierService;
   angFormFile: FormGroup;
   fdate: any;
-  filedata: any;
+  filedata:string  []  =  [];
 
   username;
   typeUser;
@@ -259,7 +259,10 @@ export class Sub3Component implements OnInit, AfterViewInit {
   //
 
   fileEvent(e){
-  this.filedata = e.target.files[0];
+    for (var i =  0; i <  e.target.files.length; i++)
+    {  
+      this.filedata.push(e.target.files[i]);
+    }
   }
   // tslint:disable-next-line:typedef
   addFile(angForm3)
@@ -272,7 +275,10 @@ export class Sub3Component implements OnInit, AfterViewInit {
     const depart = localStorage.getItem('archiving_depart');
     const user = localStorage.getItem('archiving_email');
     const myFormData = new FormData();
-    myFormData.append('file', this.filedata);
+    for(var i =  0; i <  this.filedata.length; i++)
+    {  
+      myFormData.append("file[]",  this.filedata[i]);
+    }
     myFormData.append('name', angForm3.value.name);
     myFormData.append('category', angForm3.value.category1);
     myFormData.append('date', this.fdate);

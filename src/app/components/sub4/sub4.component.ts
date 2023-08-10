@@ -190,7 +190,6 @@ export class Sub4Component implements OnInit, AfterViewInit {
     );
   }
 
-  //add category to sub1 table
 
   fileEvent(e){
   this.filedata = e.target.files[0];
